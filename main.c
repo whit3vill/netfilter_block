@@ -40,14 +40,11 @@ void filter (unsigned char* buf) {
     unsigned char *data;
 
     ipH = (struct ip *)buf;
-    printf("1\n");
     if (ipH->ip_p == IPPROTO_TCP) {
-        printf("2\n");
         tcpH = (unsigned char *)(struct tcphdr *)buf  + 4*(ipH->ip_hl);
         data = (unsigned char *)tcpH + 4*(tcpH->th_off);
         //printf("%s",data);
         if (IsHttp(data)) {
-            printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             if (strstr(data, "Host: ")) {
                 if(!strncmp(strstr(data, "Host: ") + 6, url, strlen(url))) {
                     flag = 0;
